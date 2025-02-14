@@ -1,0 +1,53 @@
+project_id = "PROJECT_ID"
+region = "YOUR_REGION"
+dr_region = "YOUR_DR_REGION"
+organization = "YOUR_ORGANIZATION_ID"
+root_node = "YOUR_ROOT_NODE_ID"
+prefix = "YOUR_PREFIX"
+owners = ["user:YOUR_USER_EMAIL"]
+billing_account_id = "YOUR_BILLING_ACCOUNT_ID"
+quota_project = "YOUR_QUOTA_PROJECT_ID"
+my_home_ip_address = "YOUR_HOME_IP_ADDRESS/32"
+
+network_config = {
+  network_self_link = "projects/PROJECT_ID/global/networks/default"
+  subnet_self_link = "projects/PROJECT_ID/regions/europe-west1/subnetworks/default"
+  composer_ip_ranges = {      
+      cloud_sql             = "100.72.16.0/24"
+      gke_master            = "100.72.0.0/28"
+      pods_range_name       = "pods"
+      services_range_name   = "services"
+    }
+}
+
+composer_config = {
+  software_config = {
+    image_version = "composer-2.9.3-airflow-2.7.3"
+    airflow_config_overrides = {
+      "celery-broker_connection_retry_on_startup" = "True"
+      "core-default_timezone" = "Europe/Madrid"
+      "core-max_active_runs_per_dag" = "1000"
+      "core-max_active_tasks_per_dag" = "100"
+      "webserver-default_ui_timezone" = "Europe/Madrid"
+      "webserver-navbar_color" = "red"
+      "webserver-rbac_autoregister_per_folder_roles" = "True"
+      "webserver-rbac_user_registration_role" = "UserNoDags"
+    }
+  }
+  workloads_config = {
+    scheduler = {
+      count = 2
+      cpu = 2
+      memory_gb = 2
+    }
+    web_server = {
+      cpu = 1
+    }
+    worker = {
+      cpu = 2
+      memory_gb = 4
+    }
+  }
+}
+
+has_dr_occurred = true 
